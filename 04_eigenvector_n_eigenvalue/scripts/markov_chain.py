@@ -43,7 +43,7 @@ print("\n3. find eigen")
 # Compute eigenvalues and eigenvectors
 eigvals, eigvecs = np.linalg.eig(P)
 print(f"eigenvale: {eigvals}")
-print(f"eigvectors: {eigvecs}")
+print(f"eigvectors: \n{eigvecs}")
 print("===")
 
 print("\n4. find weights")
@@ -83,7 +83,7 @@ print("---")
 
 print("7.2. method2")
 eigvecs_normalized = eigvecs / eigvecs.sum(axis=0)
-print(f"eigvecs_normalized: {eigvecs_normalized}")
+print(f"eigvecs_normalized: \n{eigvecs_normalized}")
 
 # print(f"coeffs[0]: {coeffs[0]}")
 # print(f"V[:, 0]: {V[:, 0]}")
