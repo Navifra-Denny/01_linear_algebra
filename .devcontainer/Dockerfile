@@ -1,4 +1,6 @@
-FROM ubuntu:22.04
+# zed cuda
+FROM nvidia/cuda:12.1.0-devel-ubuntu22.04
+# FROM ubuntu:22.04
 
 # Set the timezone to Asia/Seoul (KST)
 RUN echo "tzdata tzdata/Areas select Asia" | debconf-set-selections && \
