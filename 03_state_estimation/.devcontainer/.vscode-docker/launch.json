@@ -1,0 +1,40 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ROS: infra registration launch",
+            "type": "ros",
+            "request": "launch",
+            "target": "${workspaceFolder}/src/reconstruction/src/apps/infra_registration/launch/infra_registration.launch",
+            "preLaunchTask": "ROS: build_install_debug",
+            "launch": [
+                "rviz"
+                // "gzserver",
+                // "gzclient"
+            ]
+            // "env": {
+            //     "ROS_PACKAGE_PATH": "/home/yeongsoo/catkin_ws/devel/share/:${ROS_PACKAGE_PATH}"
+            //   }
+        },
+        {
+            "name": "Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/infra_multi_zed_exe",
+            "args": ["zed"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "make"
+        }
+    ]
+}

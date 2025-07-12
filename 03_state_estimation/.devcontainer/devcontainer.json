@@ -1,0 +1,57 @@
+{
+    "name": "linear algebra devcontainer",
+    "privileged": true,
+    "remoteUser": "soo",
+    "build": {
+            "context": "..",
+            "dockerfile": "Dockerfile",
+            "args": {
+                "USERNAME": "soo"
+            }
+        },
+    "workspaceFolder": "/catkin_ws",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/catkin_ws,type=bind",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-iot.vscode-ros",
+                "ms-vscode.cpptools",
+                "ms-python.python",
+                "ms-vscode.cmake-tools",
+                "ms-vscode.cpptools-extension-pack",
+                "alefragnani.bookmarks"
+            ],
+            "settings": {
+                "terminal.integrated.cwd": "/catkin_ws/"
+            }
+        }
+    },
+    "runArgs": [
+        "--init",
+        // "--runtime=nvidia",
+        // "--gpus=all",
+        "--net=host",
+        "--privileged",
+
+        "--volume", "/tmp/.X11-unix:/tmp/.X11-unix:rw",
+        "--env", "QT_X11_NO_MITSHM=1",
+        "--env", "XAUTHORITY=$XAUTH"
+    ],
+    "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}"
+    },
+    // "postCreateCommand": "sudo chown -R $(id -u):$(id -g) /root/catkin_ws && mkdir -p /tmp/runtime-root && chmod 0700 /tmp/runtime-root && ./scripts/postcreated.sh",
+    "mounts": [
+        // "source=/dev,target=/dev,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/.devcontainer/.vscode-docker,target=/catkin_ws/.vscode,type=bind,consistency=cached",
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ],
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest",
+            "moby": true,
+            "dockerDashComposeVersion": "v1"
+        }
+    }
+}

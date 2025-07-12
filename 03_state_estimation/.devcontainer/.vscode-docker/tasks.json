@@ -1,0 +1,108 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "/ros_entrypoint.sh",
+            "args": [
+                "catkin_make",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "ROS: clean",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "build",
+                "devel",
+                "install"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "ROS: make_debug",
+            "type": "shell",
+            "command": "catkin_make",
+            "args": [
+                "--directory",
+                "${workspaceFolder}",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "problemMatcher": [
+                "$catkin-gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "ROS: build_install_debug",
+            "type": "shell",
+            "command": "catkin_make",
+            "args": [
+                // "-j10",
+                "-DCMAKE_BUILD_TYPE=Debug",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+                "-DCATKIN_BLACKLIST_PACKAGES=\"${input:blacklist_packages}\""
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "ROS: build_install_release",
+            "type": "shell",
+            "command": "catkin_make",
+            "args": [
+                // "-j10",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+                "-DCATKIN_BLACKLIST_PACKAGES=\"${input:blacklist_packages}\"",
+                "install"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "source setup.zsh",
+            "type": "shell",
+            "command": "source ${workspaceFolder}/devel/setup.zsh",
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "blacklist_packages",
+            "type": "promptString",
+            "description": "Enter packages to blacklist (semicolon-separated)",
+            "default": "microstrain_inertial_rqt;camera_calibration;visualizer;zed_interfaces;zed_nodelets;zed_ros;zed_with_pcl;zed_wrapper"
+        }
+    ]
+}
